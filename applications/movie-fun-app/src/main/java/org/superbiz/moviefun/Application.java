@@ -8,9 +8,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 import org.superbiz.moviefun.blobstore.BlobStore;
 import org.superbiz.moviefun.blobstore.S3Store;
-import org.superbiz.moviefun.movies.MovieServlet;
+import org.superbiz.moviefun.moviesapi.MovieServlet;
+import org.superbiz.moviefun.moviesapi.MoviesClient;
+
 
 @SpringBootApplication
 public class Application {
@@ -47,4 +51,11 @@ public class Application {
 
         return new S3Store(s3Client, photoStorageBucket);
     }
+
+    @Bean
+    public MoviesClient moviesClient(@Value("${movieservice.url}") String url) {
+        RestOperations restTemplate = new RestTemplate();
+        return new MoviesClient(url,restTemplate);
+    }
+
 }

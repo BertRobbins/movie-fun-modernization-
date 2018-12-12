@@ -24,11 +24,11 @@ public class AlbumsUpdater {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final ObjectReader objectReader;
     private final BlobStore blobStore;
-    private final AlbumsBean albumsBean;
+    private final AlbumsRepositoy albumsRepositoy;
 
-    public AlbumsUpdater(BlobStore blobStore, AlbumsBean albumsBean) {
+    public AlbumsUpdater(BlobStore blobStore, AlbumsRepositoy albumsRepositoy) {
         this.blobStore = blobStore;
-        this.albumsBean = albumsBean;
+        this.albumsRepositoy = albumsRepositoy;
 
         CsvSchema schema = builder()
             .addColumn("artist")
@@ -49,7 +49,7 @@ public class AlbumsUpdater {
         }
 
         List<Album> albumsToHave = CsvUtils.readFromCsv(objectReader, maybeBlob.get().inputStream);
-        List<Album> albumsWeHave = albumsBean.getAlbums();
+        List<Album> albumsWeHave = albumsRepositoy.getAlbums();
 
         createNewAlbums(albumsToHave, albumsWeHave);
         deleteOldAlbums(albumsToHave, albumsWeHave);
@@ -62,7 +62,7 @@ public class AlbumsUpdater {
             .stream()
             .filter(album -> albumsWeHave.stream().noneMatch(album::isEquivalent));
 
-        albumsToCreate.forEach(albumsBean::addAlbum);
+        albumsToCreate.forEach(albumsRepositoy::addAlbum);
     }
 
     private void deleteOldAlbums(List<Album> albumsToHave, List<Album> albumsWeHave) {
@@ -70,7 +70,7 @@ public class AlbumsUpdater {
             .stream()
             .filter(album -> albumsToHave.stream().noneMatch(album::isEquivalent));
 
-        albumsToDelete.forEach(albumsBean::deleteAlbum);
+        albumsToDelete.forEach(albumsRepositoy::deleteAlbum);
     }
 
     private void updateExistingAlbums(List<Album> albumsToHave, List<Album> albumsWeHave) {
@@ -79,7 +79,7 @@ public class AlbumsUpdater {
             .map(album -> addIdToAlbumIfExists(albumsWeHave, album))
             .filter(Album::hasId);
 
-        albumsToUpdate.forEach(albumsBean::updateAlbum);
+        albumsToUpdate.forEach(albumsRepositoy::updateAlbum);
     }
 
     private Album addIdToAlbumIfExists(List<Album> existingAlbums, Album album) {

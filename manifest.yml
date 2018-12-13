@@ -24,3 +24,4 @@ applications:
   env:
     ALBUMS_URL: http://album-service-relaxed-lynx.apps.pikes.pal.pivotal.io//albums
     MOVIES_URL: http://movie-service-relaxed-lynx.apps.pikes.pal.pivotal.io//movies
+

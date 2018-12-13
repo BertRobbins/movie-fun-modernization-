@@ -1,7 +1,8 @@
 apply from: "../../java.gradle"
 
 dependencies {
-  
+    compile project(":components:blobstore")
+
     compile "org.springframework:spring-web:$springVersion"
     compile "org.springframework:spring-context:$springVersion"
     compile "org.springframework:spring-tx:$springVersion"

@@ -34,7 +34,7 @@ public class AlbumServiceApplication {
         AWSCredentials credentials = new BasicAWSCredentials(photoStorageAccessKeyId, photoStorageSecretKey);
         AmazonS3Client s3Client = new AmazonS3Client(credentials);
 
-        if (endpoint != null) {
+        if (endpoint != null && !endpoint.isEmpty()) {
             s3Client.setEndpoint(endpoint);
         }
 

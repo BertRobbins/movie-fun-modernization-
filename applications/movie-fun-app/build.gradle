@@ -11,9 +11,6 @@ dependencies {
   
     compile project(":components:movie-fun-api")
     compile project(":components:album-fun-api")
-    compile project(":components:blobstore")
-    compile project(":components:albums")
-    
 
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-tomcat"

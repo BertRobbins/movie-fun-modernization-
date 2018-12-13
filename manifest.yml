@@ -8,7 +8,7 @@ applications:
   - route: album-service-relaxed-lynx.apps.pikes.pal.pivotal.io
   services:
   - album-database
-  - moviefun-s3
+  - photo-storage
 - name: movie-service
   path: applications/movie-service/build/libs/movie-service-1.1.0-SNAPSHOT.jar
   routes:
@@ -20,7 +20,7 @@ applications:
   routes:
   - route: movie-fun-app-relaxed-lynx.apps.pikes.pal.pivotal.io
   services:
-  - moviefun-s3
+  - photo-storage
   env:
     ALBUMS_URL: http://album-service-relaxed-lynx.apps.pikes.pal.pivotal.io//albums
     MOVIES_URL: http://movie-service-relaxed-lynx.apps.pikes.pal.pivotal.io//movies

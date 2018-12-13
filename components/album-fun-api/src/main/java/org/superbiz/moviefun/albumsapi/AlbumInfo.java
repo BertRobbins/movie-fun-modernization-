@@ -11,6 +11,9 @@ public class AlbumInfo {
     private int year;
     private int rating;
 
+    public AlbumInfo() {
+    }
+
     public AlbumInfo(String artist, String title, int year, int rating) {
         this.artist = artist;
         this.title = title;

@@ -1,0 +1,8 @@
+applications:
+- name: album-service
+  path: build/libs/album-service-1.1.0-SNAPSHOT.jar
+  routes:
+  - route: album-service-relaxed-lynx.apps.pikes.pal.pivotal.io
+  services:
+  - album-database
+  - photo-storage

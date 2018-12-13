@@ -25,15 +25,14 @@ public class AlbumsClient {
         restOperations.postForEntity(albumsUrl, albumInfo, AlbumInfo.class);
     }
 
-    //public Album find(long id)
+    public AlbumInfo find(long id) {
+        return restOperations.getForObject(albumsUrl + "/{id}", AlbumInfo.class, id);
+    }
 
     public List<AlbumInfo> getAlbums() {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(albumsUrl);
-
-
         return restOperations.exchange(builder.toUriString(), GET, null, albumListType).getBody();
     }
-
 
     public void deleteAlbumId(Long albumId) {
         restOperations.delete(albumsUrl + "/" + albumId);
